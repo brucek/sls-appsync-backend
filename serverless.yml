@@ -165,5 +165,5 @@ resources:
                   Action:
                     - "lambda:invokeFunction"
                   Resource:
-                    - "arn:aws:lambda:#{AWS::Region}:${AWS::AccountId}:function:${self:service}-dev-graphql"
-                    - "arn:aws:lambda:#{AWS::Region}:${AWS::AccountId}:function:${self:service}-dev-graphql:*"
+                    - "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${self:service}-dev-graphql"
+                    - "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${self:service}-dev-graphql:*"
