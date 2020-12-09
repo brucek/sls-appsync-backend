@@ -1,12 +1,17 @@
 service: sls-appsync-backend
+frameworkVersion: '2'
+
+package:
+  individually: true
 
 plugins:
    - serverless-appsync-plugin
-   - serverless-pseudo-parameters
+#   - serverless-pseudo-parameters
 
 provider:
+  region: us-west-1
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs12.x
   profile: student1
 
 functions:
@@ -14,12 +19,11 @@ functions:
     handler: handler.graphql
 
 custom:
-  accountId: #{AWS::AccountId}
   appSync:
     name: sls-appsync-api
     authenticationType: AMAZON_COGNITO_USER_POOLS
     userPoolConfig:
-      awsRegion:  us-east-1
+      awsRegion:  us-west-1
       defaultAction: ALLOW
       userPoolId:  { Ref: CognitoUserPool } 
     mappingTemplates:
@@ -161,5 +165,5 @@ resources:
                   Action:
                     - "lambda:invokeFunction"
                   Resource:
-                    - "arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-dev-graphql"
-                    - "arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-dev-graphql:*"
+                    - "arn:aws:lambda:#{AWS::Region}:${AWS::AccountId}:function:${self:service}-dev-graphql"
+                    - "arn:aws:lambda:#{AWS::Region}:${AWS::AccountId}:function:${self:service}-dev-graphql:*"
